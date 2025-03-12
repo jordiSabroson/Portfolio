@@ -1,66 +1,39 @@
 ---
 import "../styles/global.css";
 
-import profilePic from "../assets/profilepic.png";
 import Layout from "../layouts/Layout.astro";
 
-import Badge from "../components/Badge.astro";
-import SocialIcon from "../components/SocialIcon.astro";
 import Experience from "../components/Experience.astro";
 import Section from "../components/Section.astro";
+import TitleSection from "../components/TitleSection.astro";
 
-import LinkedInIcon from "../icons/LinkedIn.astro";
-import GitHubIcon from "../icons/GitHub.astro";
-import MailIcon from "../icons/Mail.astro";
+
+import BriefcaseIcon from "../icons/Briefcase.astro";
+import Hello from "../components/Hello.astro";
 ---
 
 <Layout
 	title="Jordi's Portfolio | AI Programmer & Web Developer"
 	description=""
 >
-	<main>
-		<Section>
-			<img class="rounded-full h-20" src={profilePic.src} alt="profile pic" />
-			<h1 class="text-white text-5xl font-bold flex flex-row gap-x-4 py-6">
-				Hola, sóc en Jordi
-				<div class="flex justify-center items-center">
-					<a
-						href="https://www.linkedin.com/in/jordi-many%C3%A0-155897304/"
-						target="_blank"
-						rel="noopener"
-						class="flex justify-center items-center"
-					>
-						<Badge>Disponible per treballar</Badge>
-					</a>
-				</div>
-			</h1>
-			<h2 class="text-2xl text-wrap">
-				Desenvolupador d'Aplicacions web
-				<span class="opacity-80"
-					>Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-					Provident tempora deserunt
-				</span>
-			</h2>
-			<nav class="flex gap-x-2 mt-8">
-				<SocialIcon
-					href="https://www.linkedin.com/in/jordi-many%C3%A0-155897304/"
-				>
-					<LinkedInIcon class="size-6" />
-					LinkedIn
-				</SocialIcon>
-				<SocialIcon href="https://github.com/jordiSabroson">
-					<GitHubIcon class="size-6" />
-					GitHub
-				</SocialIcon>
-				<SocialIcon mailto="jordimanya3@gmail.com">
-					<MailIcon class="size-6" />
-					jordimanya3@gmail.com
-				</SocialIcon>
-			</nav>
+	<main class="px-4">
+		<!-- Hello, I am Jordi! -->
+		<Section class="py-16 md:py-36">
+			<Hello>
+				<slot />
+			</Hello>
 		</Section>
+
+		<div class="space-y-24">
+
+			<Section id="experience">
+				<TitleSection>
+					<BriefcaseIcon class="size-8" />
+					Experiència laboral	
+				</TitleSection>
+				<Experience />
+			</Section>
 		
-		<Section id="experience">
-			<Experience />
-		</Section>
+		</div>
 	</main>
 </Layout>
