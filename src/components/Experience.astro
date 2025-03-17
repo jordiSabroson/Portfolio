@@ -4,32 +4,18 @@ import ExperienceItem from "./ExperienceItem.astro";
 const EXPERIENCE = [
     {
         date: "Juny 2023",
-        title: "Bookriver",
+        title: "Abalit Technologies",
         description:
-            "Desenvolupament del front i back-end de la plataforma per a compartir ressenyes sobre llibres.",
+            "Desenvolupament del front i back-end de diversos projectes principalment en PHP i Laravel.",
         link: "https://jbookriver.apiabalit2.com/",
-    },
-    {
-        date: "Abril 2023",
-        title: "Scribl",
-        description:
-            "Desenvolupament del front i back-end del projecte Scribl, una plataforma per poder tenir les teves notes personals accessibles en tot moment.",
-        link: "#",
-
-    },
-    {
-        date: "April 2022",
-        title: "E-Commerce UI code in Tailwind CSS",
-        description:
-            "Get started with dozens of web components and interactive elements built on top of Tailwind CSS.",
-    },
+    }
 ];
 ---
 
-<ol class="relative border-s border-gray-200 dark:border-gray-700">
+<ol class="relative mt-16">
     {
         EXPERIENCE.map((experience) => (
-            <li class="mb-10 ms-4">
+            <li>
                 <ExperienceItem {...experience} />
             </li>
         ))

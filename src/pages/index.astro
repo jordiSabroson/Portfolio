@@ -6,9 +6,10 @@ import Layout from "../layouts/Layout.astro";
 import Experience from "../components/Experience.astro";
 import Section from "../components/Section.astro";
 import TitleSection from "../components/TitleSection.astro";
-
+import Projects from "../components/Projects.astro";
 
 import BriefcaseIcon from "../icons/Briefcase.astro";
+import CodeIcon from "../icons/Code.astro";
 import Hello from "../components/Hello.astro";
 ---
 
@@ -25,15 +26,21 @@ import Hello from "../components/Hello.astro";
 		</Section>
 
 		<div class="space-y-24">
-
 			<Section id="experience">
 				<TitleSection>
 					<BriefcaseIcon class="size-8" />
-					Experiència laboral	
+					Experiència laboral
 				</TitleSection>
 				<Experience />
 			</Section>
-		
+
+			<Section id="projects">
+				<TitleSection>
+					<CodeIcon class="size-8" />
+					Projectes
+				</TitleSection>
+				<Projects />
+			</Section>
 		</div>
 	</main>
 </Layout>

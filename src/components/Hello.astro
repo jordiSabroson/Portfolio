@@ -8,10 +8,14 @@ import LinkedInIcon from "../icons/LinkedIn.astro";
 import GitHubIcon from "../icons/GitHub.astro";
 import MailIcon from "../icons/Mail.astro";
 ---
-<img class="rounded-full h-20" src={profilePic.src} alt="profile pic" />
-<h1 class="text-white text-5xl font-bold flex flex-row gap-x-4 py-6">
-    Hola, sóc en Jordi
-    <div class="flex justify-center items-center">
+
+<div class="max-w-x1">
+    <div class="flex gap-4 mb-4">
+        <img
+            class="rounded-full shadow-lg h-20"
+            src={profilePic.src}
+            alt="profile pic"
+        />
         <a
             href="https://www.linkedin.com/in/jordi-many%C3%A0-155897304/"
             target="_blank"
@@ -21,25 +25,36 @@ import MailIcon from "../icons/Mail.astro";
             <Badge>Disponible per treballar</Badge>
         </a>
     </div>
-</h1>
-<h2 class="text-2xl text-wrap">
-    Desenvolupador d'Aplicacions web
-    <span class="opacity-80"
-        >Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident
-        tempora deserunt
-    </span>
-</h2>
-<nav class="flex gap-x-2 mt-8">
-    <SocialIcon href="https://www.linkedin.com/in/jordi-many%C3%A0-155897304/">
-        <LinkedInIcon class="size-6" />
-        LinkedIn
-    </SocialIcon>
-    <SocialIcon href="https://github.com/jordiSabroson">
-        <GitHubIcon class="size-6" />
-        GitHub
-    </SocialIcon>
-    <SocialIcon mailto="jordimanya3@gmail.com">
-        <MailIcon class="size-6" />
-        jordimanya3@gmail.com
-    </SocialIcon>
-</nav>
+    <h1
+        class="dark:text-white text-gray-800 text-4xl font-bold sm:text-5xl tracking-tight"
+    >
+        Hola, sóc en Jordi!
+    </h1>
+    <p
+        class="mt-6 text-xl text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300"
+    >
+        Desenvolupador d'Aplicacions web
+        <strong>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident
+            tempora deserunt
+        </strong>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident tempora
+        deserunt
+    </p>
+    <nav class="flex flex-wrap gap-4 mt-8">
+        <SocialIcon
+            href="https://www.linkedin.com/in/jordi-many%C3%A0-155897304/"
+        >
+            <LinkedInIcon class="size-5" />
+            LinkedIn
+        </SocialIcon>
+        <SocialIcon href="https://github.com/jordiSabroson">
+            <GitHubIcon class="size-6" />
+            GitHub
+        </SocialIcon>
+        <SocialIcon href="mailto:jordimanya3@gmail.com">
+            <MailIcon class="size-6" />
+            jordimanya3@gmail.com
+        </SocialIcon>
+    </nav>
+</div>
