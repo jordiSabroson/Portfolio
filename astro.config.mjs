@@ -8,6 +8,5 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()]
   },
-  site: 'https://jordiSabroson.github.io',
-  base: '/Portfolio',
+  site: 'https://jordiSabroson.github.io'
 });
