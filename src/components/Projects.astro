@@ -5,6 +5,8 @@ import Link from "./Link.astro";
 import PHP from "../icons/PHP.astro";
 import Laravel from "../icons/Laravel.astro";
 import Bootstrap from "../icons/Bootstrap.astro";
+import IA from "../icons/IA.astro";
+import Python from "../icons/Python.astro";
 
 const TAGS = {
     PHP: {
@@ -22,8 +24,26 @@ const TAGS = {
         class: "bg-purple-800 text-white",
         icon: Bootstrap,
     },
+    IA: {
+        name: "Machine Learning / IA",
+        class: "bg-green-800 text-white",
+        icon: IA,
+    },
+    PYTHON: {
+        name: "Python",
+        class: "bg-[#4584b6] text-white",
+        icon: Python,
+    },
 };
 const PROJECTS = [
+    {
+        title: "Chord Generator",
+        description:
+            "Aplicació web per a generar progressions d'acords depenent d'una estructura i un gènere musical. Fa servir un model de Machine Learning entrenat amb dades musicals reals.",
+        link: "/ChordGenerator",
+        image: "/projects/Bookriver.webp",
+        tags: [TAGS.PYTHON, TAGS.IA],
+    },
     {
         title: "Bookriver",
         description:

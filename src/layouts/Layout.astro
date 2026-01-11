@@ -1,7 +1,6 @@
 ---
 import "@fontsource-variable/onest";
 
-import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Background from "../components/Background.astro";
 
@@ -24,7 +23,6 @@ const { description, title } = Astro.props;
 	</head>
 	<body class="relative text-black dark:text-white">
 		<Background />
-		<Header />
 		<slot />
 		<Footer />
 		<style is:global>
@@ -103,5 +101,9 @@ const { description, title } = Astro.props;
 				}
 			}
 		</style>
+		<script
+			is:inline
+			src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"
+		></script>
 	</body>
 </html>

@@ -1,0 +1,41 @@
+---
+interface Option {
+  label: string;
+  value: string;
+}
+
+interface Props {
+  label: string;
+  name: string;
+  id: string;
+  options: Option[];
+  placeholder?: string;
+}
+
+const {
+  label,
+  name,
+  id,
+  options,
+  placeholder = 'Select an option',
+} = Astro.props;
+---
+
+<div class="w-full">
+  <label for={id} class="block mb-2 text-sm font-medium text-heading">
+    {label}
+  </label>
+  <select
+    id={id}
+    name={name}
+    required
+    class="block w-full p-3 bg-gray-800 text-white rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body outline-none transition-all"
+  >
+    <option value="" disabled selected>{placeholder}</option>
+    {
+      options.map((option) => (
+        <option value={option.value}>{option.label}</option>
+      ))
+    }
+  </select>
+</div>

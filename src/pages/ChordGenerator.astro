@@ -1,0 +1,178 @@
+---
+import "../styles/global.css";
+
+import Layout from "../layouts/Layout.astro";
+import Select from "../components/Select.astro";
+
+const GENRES = [
+    { label: "Alternative", value: "alternative" },
+    { label: "Country", value: "country" },
+    { label: "Electronic", value: "electronic" },
+    { label: "Jazz", value: "jazz" },
+    { label: "Metal", value: "metal" },
+    { label: "Pop", value: "pop" },
+    { label: "Pop Rock", value: "pop rock" },
+    { label: "Punk", value: "punk" },
+    { label: "Rap", value: "rap" },
+    { label: "Reggae", value: "reggae" },
+    { label: "Rock", value: "rock" },
+    { label: "Soul", value: "soul" },
+];
+
+const SECTIONS = [
+    { label: "Bridge", value: "bridge" },
+    { label: "Chorus", value: "chorus" },
+    { label: "Instrumental", value: "instrumental" },
+    { label: "Interlude", value: "interlude" },
+    { label: "Intro", value: "intro" },
+    { label: "Intro riff", value: "intro_riff" },
+    { label: "Outro", value: "outro" },
+    { label: "Solo", value: "solo" },
+    { label: "Verse", value: "verse" },
+];
+---
+
+<Layout title="AI Chord Generator" description="">
+    <section class="max-w-4xl mx-auto px-4 py-12">
+        <div class="mb-12 text-center">
+            <h1
+                class="text-4xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-600"
+            >
+                AI Chord Generator
+            </h1>
+            <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+                Deep Learning model (LSTM) that generates musical progressions
+                based on genre and song section.
+            </p>
+        </div>
+
+        <div
+            class="bg-gray-900 border border-gray-800 p-8 rounded-2xl shadow-xl"
+        >
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="flex flex-col gap-2">
+                    <label for="section" class="font-semibold text-gray-300"
+                        >Genre</label
+                    >
+                    <Select id="genreSelect" name="genre" label="Select Genre" options={GENRES} />
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="section" class="font-semibold text-gray-300"
+                        >Section</label
+                    >
+                    <Select id="sectionSelect" name="section" label="Select Section" options={SECTIONS} />
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="startChords" class="font-semibold text-gray-300"
+                        >Start Chord</label
+                    >
+                    <input
+                        type="text"
+                        id="startChords"
+                        placeholder="Ex: C, Am"
+                        class="block w-full p-3 mt-7 bg-gray-800 text-white rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body outline-none transition-all"
+                    />
+                </div>
+            </div>
+
+            <button
+                id="generateBtn"
+                class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-xl transition-all shadow-lg hover:shadow-blue-500/20 active:scale-[0.98]"
+            >
+                Compose Progression
+            </button>
+
+            <div id="loading" class="hidden mt-8 text-center">
+                <div
+                    class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500 mb-2"
+                >
+                </div>
+                <p class="text-blue-400 animate-pulse">AI is thinking...</p>
+            </div>
+
+            <div
+                id="chordDisplay"
+                class="mt-12 grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-4"
+            >
+            </div>
+        </div>
+    </section>
+</Layout>
+
+<script>
+    // Usamos "as" para decirle exactamente qué tipo de elemento es cada uno
+    const btn = document.getElementById('generateBtn') as HTMLButtonElement | null;
+    const loading = document.getElementById('loading') as HTMLElement | null;
+    const display = document.getElementById('chordDisplay') as HTMLElement | null;
+
+    // Estos ya los tenías bien encaminados
+    const genreSelect = document.getElementById('genreSelect') as HTMLSelectElement | null;
+    const sectionSelect = document.getElementById('sectionSelect') as HTMLSelectElement | null;
+    const startInput = document.getElementById('startChords') as HTMLInputElement | null;
+
+    const API_URL = "https://trabuko-chord-generator-api.hf.space/generate";
+
+    // Verificamos que los elementos existan antes de usarlos
+    if (btn && loading && display && genreSelect && sectionSelect && startInput) {
+        
+        btn.addEventListener('click', async () => {
+            const genre = genreSelect.value;
+            const section = sectionSelect.value;
+            const startRaw = startInput.value;
+
+            if (!genre || !section || !startRaw) {
+                alert("Please fill in all fields");
+                return;
+            }
+
+            const startSequence = startRaw.split(',').map(s => s.trim()).filter(s => s !== "");
+
+            // UI Feedback
+            btn.disabled = true;
+            loading.classList.remove('hidden');
+            display.innerHTML = '';
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        start: startSequence,
+                        section: section,
+                        genre: genre,
+                        length: 10
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Tipamos chord como string e index como number para evitar el error 'any'
+                    data.chords.forEach((chord: string, index: number) => {
+                        const card = document.createElement('div');
+                        card.className = "opacity-0 translate-y-4 bg-gray-800 border-b-4 border-blue-500 p-4 rounded-lg text-center shadow-md transition-all duration-500";
+                        card.innerHTML = `<span class="text-xl font-bold text-white">${chord}</span>`;
+                        
+                        // TypeScript ya sabe que display no es null aquí
+                        display.appendChild(card);
+
+                        setTimeout(() => {
+                            card.classList.remove('opacity-0', 'translate-y-4');
+                        }, index * 100);
+                    });
+                } else {
+                    throw new Error(data.error);
+                }
+
+            } catch (error) {
+                console.error("API Error:", error);
+                display.innerHTML = `<p class="col-span-full text-center text-red-400">Error connecting to AI.</p>`;
+            } finally {
+                btn.disabled = false;
+                loading.classList.add('hidden');
+            }
+        });
+    }
+</script>
