@@ -8,5 +8,12 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()]
   },
-  site: 'https://jordiSabroson.github.io'
+  site: 'https://jordiSabroson.github.io',
+  i18n: {
+    defaultLocale: 'ca',
+    locales: ['ca', 'es', 'en'],
+    routing: {
+      prefixDefaultLocale: false
+    }
+  }
 });
